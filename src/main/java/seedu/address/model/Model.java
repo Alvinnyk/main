@@ -324,7 +324,7 @@ public interface Model {
     /**
      * Gets the current state of the schedule window display
      */
-    ScheduleWindowDisplayType getState();
+    ScheduleWindowDisplayType getDisplayState();
 
     //=========== Suggesters =============================================================
 
@@ -392,6 +392,10 @@ public interface Model {
     String list();
 
     TimeBook getTimeBook();
+
+    void undo() throws NothingToUndoException;
+
+    void saveState();
 
 
 }

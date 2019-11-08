@@ -20,6 +20,24 @@ public class PersonToGroupMappingList {
         this.mappings = new ArrayList<>();
     }
 
+    public PersonToGroupMappingList(ArrayList<PersonToGroupMapping> mappings) {
+        this.mappings = mappings;
+    }
+
+    public PersonToGroupMappingList copy() {
+        ArrayList<PersonToGroupMapping> mappingsCopy = new ArrayList<>();
+
+        for(PersonToGroupMapping map: mappings) {
+            mappingsCopy.add(map.copy());
+        }
+
+        PersonToGroupMappingList mappingListCopy = new PersonToGroupMappingList(
+                mappingsCopy
+        );
+
+        return mappingListCopy;
+    }
+
     /**
      * Adds a mapping to the list of mappings, will not add when a duplicate is found.
      *

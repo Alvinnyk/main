@@ -37,6 +37,7 @@ import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.ShowNusModCommand;
 import seedu.address.logic.commands.SwitchTabCommand;
 import seedu.address.logic.commands.ToggleNextWeekCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -45,44 +46,28 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class TimeBookParser {
 
     /**
-     * Represents the two parts of a command: its {@code commandWord} and {@code arguments}.
-     */
-    public static class CommandTokens {
-        public final String commandWord;
-        public final String arguments;
-
-        public CommandTokens(String commandWord, String arguments) {
-            this.commandWord = commandWord;
-            this.arguments = arguments;
-        }
-
-        public int getCommandWordLength() {
-            return commandWord.length();
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            CommandTokens that = (CommandTokens) o;
-            return commandWord.equals(that.commandWord)
-                    && arguments.equals(that.arguments);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(commandWord, arguments);
-        }
-    }
-
-    /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    /**
+     * Tokenize user input into two parts: {@code commandWord} and {@code arguments}.
+     *
+     * @param userInput Full user input string.
+     * @return The {@code userInput} split into the two {@code commandWord} and {@code arguments} parts.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public static CommandTokens tokenizeCommand(final String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        return new CommandTokens(
+                matcher.group("commandWord"),
+                matcher.group("arguments")
+        );
+    }
 
     /**
      * Parses user input into command for execution.
@@ -184,27 +169,46 @@ public class TimeBookParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
     /**
-     * Tokenize user input into two parts: {@code commandWord} and {@code arguments}.
-     *
-     * @param userInput Full user input string.
-     * @return The {@code userInput} split into the two {@code commandWord} and {@code arguments} parts.
-     * @throws ParseException if the user input does not conform the expected format
+     * Represents the two parts of a command: its {@code commandWord} and {@code arguments}.
      */
-    public static CommandTokens tokenizeCommand(final String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+    public static class CommandTokens {
+        public final String commandWord;
+        public final String arguments;
+
+        public CommandTokens(String commandWord, String arguments) {
+            this.commandWord = commandWord;
+            this.arguments = arguments;
         }
 
-        return new CommandTokens(
-                matcher.group("commandWord"),
-                matcher.group("arguments")
-        );
+        public int getCommandWordLength() {
+            return commandWord.length();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            CommandTokens that = (CommandTokens) o;
+            return commandWord.equals(that.commandWord)
+                    && arguments.equals(that.arguments);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(commandWord, arguments);
+        }
     }
 }

@@ -26,7 +26,6 @@ public class Address {
      */
     public Address(String address) {
         requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
         value = address;
     }
 
@@ -66,6 +65,10 @@ public class Address {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    public Address copy() {
+        return new Address(value);
     }
 
 }

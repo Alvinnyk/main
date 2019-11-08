@@ -32,6 +32,17 @@ public class Group {
         this.userRole = userRole;
     }
 
+    public Group copy() {
+        Group groupCopy = new Group(
+                groupId.copy(),
+                groupName.copy(),
+                groupDescription.copy(),
+                userRole.copy()
+        );
+
+        return groupCopy;
+    }
+
     public static void setCounter(int i) {
         counter = i;
     }
@@ -41,6 +52,13 @@ public class Group {
      */
     public static void counterReset() {
         counter = 0;
+    }
+
+    /**
+     * Gets the current counter.
+     */
+    public static int getCounter() {
+        return counter;
     }
 
     /**

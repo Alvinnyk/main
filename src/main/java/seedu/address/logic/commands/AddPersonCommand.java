@@ -56,12 +56,16 @@ public class AddPersonCommand extends Command {
             Person addedPerson = model.addPerson(personDescriptor);
 
             // update main window
-            model.updateScheduleWindowDisplay(addedPerson.getName(), LocalDateTime.now(),
-                    ScheduleWindowDisplayType.PERSON);
+            /*model.updateScheduleWindowDisplay(addedPerson.getName(), LocalDateTime.now(),
+                    ScheduleWindowDisplayType.PERSON);*/
+
+            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
+
 
             // update side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, addedPerson.getName().toString()));
 
         } catch (DuplicatePersonException e) {

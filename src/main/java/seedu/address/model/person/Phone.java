@@ -29,7 +29,6 @@ public class Phone {
      */
     public Phone(String phone) {
         requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
         value = phone;
     }
 
@@ -59,6 +58,10 @@ public class Phone {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    public Phone copy() {
+        return new Phone(value);
     }
 
 }

@@ -71,6 +71,9 @@ public class ModelManager implements Model {
     // UI display
     private DisplayModelManager displayModelManager;
 
+    // State Manager
+    private ModelStateManager modelStateManager;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -85,6 +88,8 @@ public class ModelManager implements Model {
         this.gmapsModelManager = gmapsModelManager;
         this.nusModsData = nusModsData;
         this.displayModelManager = new DisplayModelManager(gmapsModelManager);
+
+        this.modelStateManager = new ModelStateManager();
 
         int personCounter = -1;
         for (int i = 0; i < personList.getPersons().size(); i++) {
@@ -106,6 +111,8 @@ public class ModelManager implements Model {
 
         this.userPrefs = new UserPrefs(userPrefs);
         initialiseDefaultWindowDisplay();
+
+        saveState();
     }
 
     public ModelManager(TimeBook timeBook) {
@@ -115,6 +122,46 @@ public class ModelManager implements Model {
     public ModelManager() {
         this(new TimeBook());
     }
+
+    //=========== Model States ==================================================================================
+
+    public void undo() throws NothingToUndoException {
+        loadState(modelStateManager.undo());
+    }
+
+    public void saveState() {
+        modelStateManager.saveState(getModelState());
+    }
+
+    private void loadState(ModelState modelState) {
+
+        this.timeBook = modelState.getTimeBook();
+
+        this.displayModelManager.updateScheduleWindowDisplay(modelState.getScheduleWindowDisplay());
+        this.displayModelManager.updateSidePanelDisplay(modelState.getSidePanelDisplay());
+
+        this.personList = modelState.getTimeBook().getPersonList();
+        this.groupList = modelState.getTimeBook().getGroupList();
+        this.personToGroupMappingList = modelState.getTimeBook().getPersonToGroupMappingList();
+
+        Person.setCounter(modelState.getPersonIdCounter());
+        Group.setCounter(modelState.getGroupIdCounter());
+    }
+
+    private ModelState getModelState() {
+
+        ModelState modelState = new ModelState(
+                timeBook.copy(),
+                displayModelManager.getScheduleWindowDisplay(),
+                displayModelManager.getSidePanelDisplay(),
+                Person.getCounter(),
+                Group.getCounter()
+        );
+        return modelState;
+    }
+
+
+
 
     @Override
     public boolean equals(Object obj) {
@@ -408,17 +455,17 @@ public class ModelManager implements Model {
 
     @Override
     public void updateScheduleWindowDisplay(Name name, LocalDateTime time, ScheduleWindowDisplayType type) {
-        displayModelManager.updateScheduleWindowDisplay(name, time, type, timeBook);
+        displayModelManager.updateScheduleWindowDisplay(name.copy(), time, type, timeBook.copy());
     }
 
     @Override
     public void updateScheduleWindowDisplay(LocalDateTime time, ScheduleWindowDisplayType type) {
-        displayModelManager.updateScheduleWindowDisplay(time, type, timeBook);
+        displayModelManager.updateScheduleWindowDisplay(time, type, timeBook.copy());
     }
 
     @Override
     public void updateScheduleWindowDisplay(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type) {
-        displayModelManager.updateScheduleWindowDisplay(groupName, time, type, timeBook);
+        displayModelManager.updateScheduleWindowDisplay(groupName.copy(), time, type, timeBook.copy());
     }
 
     @Override
@@ -428,14 +475,15 @@ public class ModelManager implements Model {
 
     @Override
     public void updateSidePanelDisplay(SidePanelDisplayType type) {
-        displayModelManager.updateSidePanelDisplay(type, timeBook);
+        displayModelManager.updateSidePanelDisplay(type, timeBook.copy());
     }
 
     public void initialiseDefaultWindowDisplay() {
-        displayModelManager.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME, timeBook);
+        displayModelManager.updateScheduleWindowDisplay(LocalDateTime.now(),
+                ScheduleWindowDisplayType.HOME, timeBook.copy());
     }
 
-    public ScheduleWindowDisplayType getState() {
+    public ScheduleWindowDisplayType getDisplayState() {
         return displayModelManager.getState();
     }
 

@@ -29,6 +29,27 @@ public class PersonList {
         this.persons = new ArrayList<>();
     }
 
+    public PersonList(User user, ArrayList<Person> persons) {
+        this.user = user;
+        this.persons = persons;
+    }
+
+    public PersonList copy() {
+
+        ArrayList<Person> personsCopy = new ArrayList<>();
+
+        for(Person person: persons) {
+            personsCopy.add(person.copy());
+        }
+
+        PersonList personListCopy = new PersonList(
+                user.copy(),
+                personsCopy
+        );
+
+        return personListCopy;
+    }
+
     /**
      * Adds a person into the list of persons.
      *

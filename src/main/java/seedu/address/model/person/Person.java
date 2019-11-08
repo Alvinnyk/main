@@ -45,8 +45,15 @@ public class Person {
         counter += 1;
     }
 
-    public Person(PersonId personId, Name name, Phone phone, Email email,
-                  Address address, Remark remark, Schedule schedule, Set<Tag> tags) {
+    public Person(PersonId personId,
+                  Name name,
+                  Phone phone,
+                  Email email,
+                  Address address,
+                  Remark remark,
+                  Schedule schedule,
+                  Set<Tag> tags) {
+
         requireAllNonNull(name);
         this.name = name;
         this.phone = phone;
@@ -101,6 +108,13 @@ public class Person {
     }
 
     /**
+     * Gets the current counter.
+     */
+    public static int getCounter() {
+        return counter;
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
@@ -148,6 +162,21 @@ public class Person {
         output += name.toString();
 
         return output;
+    }
+
+    public Person copy() {
+        Person personCopy = new Person(
+                personId.copy(),
+                name.copy(),
+                phone.copy(),
+                email.copy(),
+                address.copy(),
+                remark.copy(),
+                schedule.copy(),
+                new HashSet<>(tags)
+        );
+
+        return personCopy;
     }
 
     public void addTags(Set<Tag> tags) {

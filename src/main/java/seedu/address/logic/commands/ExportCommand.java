@@ -28,7 +28,7 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         //Does nothing to the model.
         requireNonNull(model);
-        ScheduleWindowDisplayType state = model.getState();
+        ScheduleWindowDisplayType state = model.getDisplayState();
         if (!state.equals(ScheduleWindowDisplayType.PERSON) && !state.equals(ScheduleWindowDisplayType.GROUP)) {
             throw new CommandException(MESSAGE_FAILURE);
         }

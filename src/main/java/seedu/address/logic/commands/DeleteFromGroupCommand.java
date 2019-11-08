@@ -77,6 +77,7 @@ public class DeleteFromGroupCommand extends Command {
             return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_MAPPING_NOT_FOUND));
         }
 
+        model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 person.getName().toString(), group.getGroupName().toString()));
     }

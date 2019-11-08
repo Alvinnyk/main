@@ -84,6 +84,7 @@ public class AddToGroupCommand extends Command {
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_SUCCESS,
                     person.getName().toString(), group.getGroupName().toString()));
 
@@ -94,6 +95,7 @@ public class AddToGroupCommand extends Command {
             model.updateScheduleWindowDisplay(group.getGroupName(),
                     LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_UPDATED_ROLE, mapping.getRole().toString()));
         }
 

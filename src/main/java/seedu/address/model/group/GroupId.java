@@ -14,6 +14,10 @@ public class GroupId {
         this.identifier = Integer.parseInt(id);
     }
 
+    public GroupId copy() {
+        return new GroupId(identifier);
+    }
+
     public Integer getIdentifier() {
         return identifier;
     }

@@ -71,6 +71,7 @@ public class EditPersonCommand extends Command {
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, name.toString()));
 
         } catch (PersonNotFoundException e) {

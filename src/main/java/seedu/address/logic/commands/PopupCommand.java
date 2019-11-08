@@ -71,6 +71,7 @@ public class PopupCommand extends Command {
                     return new CommandResult(MESSAGE_USER_ERROR + errorResponse);
                 }
 
+                model.saveState();
                 return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, true,
                         freeTimeslot.getClosestCommonLocationData());
 

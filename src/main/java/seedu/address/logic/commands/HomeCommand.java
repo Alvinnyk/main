@@ -22,6 +22,8 @@ public class HomeCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
 
         model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
+
+        model.saveState();
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, false,
                 false, false, true);
     }

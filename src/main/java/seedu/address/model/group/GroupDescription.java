@@ -25,6 +25,10 @@ public class GroupDescription {
         return new GroupDescription();
     }
 
+    public GroupDescription copy() {
+        return new GroupDescription(description);
+    }
+
     @Override
     public String toString() {
         return description;

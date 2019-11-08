@@ -22,7 +22,7 @@ public class ToggleNextWeekCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        ScheduleWindowDisplayType status = model.getState();
+        ScheduleWindowDisplayType status = model.getDisplayState();
         if (status == ScheduleWindowDisplayType.PERSON
                 || status == ScheduleWindowDisplayType.GROUP
                 || status == ScheduleWindowDisplayType.NONE) {

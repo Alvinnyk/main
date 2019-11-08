@@ -40,4 +40,8 @@ public class Venue {
     public void setVenue(String venue) {
         this.venue = venue;
     }
+
+    public Venue copy() {
+        return new Venue(venue);
+    }
 }

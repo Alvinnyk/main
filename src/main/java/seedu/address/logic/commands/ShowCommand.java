@@ -59,6 +59,8 @@ public class ShowCommand<T> extends Command {
             } else {
                 model.updateScheduleWindowDisplay((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
             }
+
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, person.get().getName().toString()),
                     false, false);
         } else if (name instanceof GroupName) {
@@ -76,10 +78,14 @@ public class ShowCommand<T> extends Command {
             }
 
             model.updateScheduleWindowDisplay((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, group.get().getGroupName().toString()),
                     false, false);
         } else {
             model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, "Your schedule",
                     false, false));
         }

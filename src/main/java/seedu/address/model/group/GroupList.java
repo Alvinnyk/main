@@ -19,6 +19,24 @@ public class GroupList {
         this.groups = new ArrayList<>();
     }
 
+    public GroupList(ArrayList<Group> groups) {
+        this.groups = groups;
+    }
+
+    public GroupList copy() {
+
+        ArrayList<Group> groupsCopy = new ArrayList<>();
+        for(Group group: groups) {
+            groupsCopy.add(group.copy());
+        }
+
+        GroupList groupListCopy = new GroupList(
+                groupsCopy
+        );
+
+        return groupListCopy;
+    }
+
     /**
      * Adds a Group to the list of groups.
      *

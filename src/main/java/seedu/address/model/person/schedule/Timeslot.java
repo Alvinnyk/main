@@ -19,6 +19,16 @@ public class Timeslot {
         this.venue = venue;
     }
 
+    public Timeslot copy() {
+        Timeslot timeslotCopy = new Timeslot(
+                startTime,
+                endTime,
+                venue.copy()
+        );
+
+        return timeslotCopy;
+    }
+
     /**
      * Compares if it is equal to another timeslot object.
      *

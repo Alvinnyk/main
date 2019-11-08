@@ -23,6 +23,16 @@ public class PersonToGroupMapping {
         this.role = role;
     }
 
+    public PersonToGroupMapping copy() {
+
+        PersonToGroupMapping mapCopy = new PersonToGroupMapping(
+                personId.copy(),
+                groupId.copy(),
+                role.copy()
+        );
+        return mapCopy;
+    }
+
     public GroupId getGroupId() {
         return this.groupId;
     }

@@ -60,6 +60,7 @@ public class AddEventCommand extends Command {
                     model.addEvent(name, event);
                     model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
                 }
+                model.saveState();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, event.getEventName().trim()));
 
             } catch (PersonNotFoundException e) {

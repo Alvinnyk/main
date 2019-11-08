@@ -46,7 +46,7 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        ScheduleWindowDisplayType status = model.getState();
+        ScheduleWindowDisplayType status = model.getDisplayState();
         if (status == ScheduleWindowDisplayType.GROUP) {
             try {
                 if (name.equals(Name.emptyName())) {

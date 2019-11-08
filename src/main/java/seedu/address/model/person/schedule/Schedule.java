@@ -23,6 +23,21 @@ public class Schedule {
         this.events = events;
     }
 
+    public Schedule copy() {
+        ArrayList<Event> eventsCopy = new ArrayList<>();
+
+        for (Event event: events) {
+            eventsCopy.add(event.copy());
+        }
+
+        Schedule scheduleCopy = new Schedule(
+                personId.copy(),
+                eventsCopy
+        );
+
+        return scheduleCopy;
+    }
+
     /**
      * Adds an event into the schedule.
      *

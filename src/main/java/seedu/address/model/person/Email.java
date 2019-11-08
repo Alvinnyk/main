@@ -43,7 +43,6 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
         value = email;
     }
 
@@ -76,6 +75,10 @@ public class Email {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    public Email copy() {
+        return new Email(value);
     }
 
 }

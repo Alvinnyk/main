@@ -63,6 +63,7 @@ public class EditGroupCommand extends Command {
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, groupName.toString().trim()));
 
         } catch (DuplicateGroupException e) {

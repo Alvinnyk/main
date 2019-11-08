@@ -34,4 +34,8 @@ public class PersonId {
             return false;
         }
     }
+
+    public PersonId copy() {
+        return new PersonId(identifier);
+    }
 }

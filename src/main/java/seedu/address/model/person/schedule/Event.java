@@ -19,6 +19,21 @@ public class Event {
         this.timeslots = timeslots;
     }
 
+    public Event copy() {
+
+        ArrayList<Timeslot> timeslotsCopy = new ArrayList<>();
+        for (Timeslot timeslot : timeslots) {
+            timeslotsCopy.add(timeslot.copy());
+        }
+
+        Event eventCopy = new Event(
+                eventName.trim(),
+                timeslotsCopy
+        );
+
+        return eventCopy;
+    }
+
     /**
      * Adds a timeslot to the Event.
      *

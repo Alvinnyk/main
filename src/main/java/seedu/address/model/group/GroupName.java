@@ -21,6 +21,10 @@ public class GroupName {
         groupName = "";
     }
 
+    public GroupName copy() {
+        return new GroupName(groupName);
+    }
+
     public String toString() {
         return this.groupName;
     }

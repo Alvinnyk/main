@@ -46,6 +46,7 @@ public class FindGroupCommand extends Command {
 
             //return new CommandResult(String.format(MESSAGE_SUCCESS, groupName.toString()));
 
+            model.saveState();
             return new CommandResult(model.getScheduleWindowDisplay().freeScheduleToString());
 
         } catch (GroupNotFoundException e) {

@@ -29,7 +29,8 @@ public class ScheduleWindowDisplay {
     }
 
     public ScheduleWindowDisplay(ArrayList<PersonSchedule> personSchedules,
-                               ArrayList<FreeSchedule> freeScheduleWeeks, GroupDisplay groupDisplay,
+                                 ArrayList<FreeSchedule> freeScheduleWeeks,
+                                 GroupDisplay groupDisplay,
                                  ScheduleWindowDisplayType scheduleWindowDisplayType) {
 
         this.personSchedules = personSchedules;

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.model.GmapsModelManager;
+import seedu.address.model.ModelState;
 import seedu.address.model.TimeBook;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.display.detailwindow.PersonSchedule;
@@ -51,24 +52,16 @@ public class DisplayModelManager {
     private static final int DAYS_OF_A_WEEK = 7;
     private static final int FREE_TIMESLOT_TRHESHOLD = 15;
 
-    private GmapsModelManager gmapsModelManager;
+    private final LocalTime startTime = LocalTime.of(8, 0);
+    private final LocalTime endTime = LocalTime.of(20, 0);
 
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private GmapsModelManager gmapsModelManager;
 
     private ScheduleWindowDisplay scheduleWindowDisplay;
     private SidePanelDisplay sidePanelDisplay;
 
     public DisplayModelManager(GmapsModelManager gmapsModelManager) {
         this.gmapsModelManager = gmapsModelManager;
-        this.startTime = LocalTime.of(8, 0);
-        this.endTime = LocalTime.of(20, 0);
-    }
-
-    public DisplayModelManager(GmapsModelManager gmapsModelManager, LocalTime startTime, LocalTime endTime) {
-        this.gmapsModelManager = gmapsModelManager;
-        this.startTime = startTime;
-        this.endTime = endTime;
     }
 
     /**
@@ -88,15 +81,20 @@ public class DisplayModelManager {
      * @param type     type of schedule
      * @param timeBook data
      */
-    public void updateScheduleWindowDisplay(Name name, LocalDateTime time,
+    public void updateScheduleWindowDisplay(Name name,
+                                            LocalDateTime time,
                                             ScheduleWindowDisplayType type,
                                             TimeBook timeBook) {
 
         try {
             ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
 
-            PersonSchedule personSchedule = generatePersonSchedule(name.toString(),
-                    time, timeBook.getPersonList().findPerson(name), Role.emptyRole());
+            PersonSchedule personSchedule = generatePersonSchedule(
+                    name.toString(),
+                    time,
+                    timeBook.getPersonList().findPerson(name),
+                    Role.emptyRole());
+
             personSchedules.add(personSchedule);
             ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personSchedules, type);
             updateScheduleWindowDisplay(scheduleWindowDisplay);

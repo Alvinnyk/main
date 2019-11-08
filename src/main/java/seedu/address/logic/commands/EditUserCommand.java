@@ -55,6 +55,7 @@ public class EditUserCommand extends Command {
 
             model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
 
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, user.getName().toString()));
 
         } catch (NoPersonFieldsEditedException e) {

@@ -52,4 +52,8 @@ public class Remark {
         return value.hashCode();
     }
 
+    public Remark copy() {
+        return new Remark(value);
+    }
+
 }

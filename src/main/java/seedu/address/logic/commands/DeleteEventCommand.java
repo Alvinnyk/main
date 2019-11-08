@@ -56,6 +56,7 @@ public class DeleteEventCommand extends Command {
 
             }
 
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, eventName));
 
         } catch (EventNotFoundException e) {

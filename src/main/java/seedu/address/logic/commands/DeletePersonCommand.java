@@ -45,6 +45,7 @@ public class DeletePersonCommand extends Command {
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
 
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, name.toString()));
 
         } catch (PersonNotFoundException e) {

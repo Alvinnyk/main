@@ -24,6 +24,10 @@ public class Role {
         return new Role();
     }
 
+    public Role copy() {
+        return new Role("role");
+    }
+
     public String getRole() {
         return role;
     }

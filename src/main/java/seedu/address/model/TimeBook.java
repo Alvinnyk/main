@@ -41,6 +41,15 @@ public class TimeBook {
         this.personToGroupMappingList = personToGroupMappingList;
     }
 
+    public TimeBook copy() {
+        TimeBook timeBookCopy = new TimeBook(
+                personList.copy(),
+                groupList.copy(),
+                personToGroupMappingList.copy()
+        );
+        return timeBookCopy;
+    }
+
     public void addPerson(Person person) {
         this.personList.addPerson(person);
     }

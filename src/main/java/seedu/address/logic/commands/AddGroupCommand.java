@@ -51,6 +51,7 @@ public class AddGroupCommand extends Command {
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
+            model.saveState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, group.getGroupName().toString()));
 
         } catch (DuplicateGroupException e) {

@@ -98,6 +98,7 @@ public class AddNusModsCommand extends Command {
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
         }
 
+        model.saveState();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

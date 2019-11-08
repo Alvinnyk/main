@@ -18,7 +18,7 @@ public class SwitchTabCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
 
-        ScheduleWindowDisplayType state = model.getState();
+        ScheduleWindowDisplayType state = model.getDisplayState();
         if (state == ScheduleWindowDisplayType.HOME) {
             //model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
             CommandResult commandResult =
